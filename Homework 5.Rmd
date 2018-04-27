@@ -1,0 +1,55 @@
+---
+title: "Homework 5"
+author: "Nick Marotta"
+date: "April 24, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(parallel)
+```
+###1. Write a function that returns a randomly chosen letter of the alphabet.
+
+```{r}
+Lettergen <- function(n){
+letter <- c()
+letter <- letters[runif(n,1,26)]
+return(letter)
+}
+```
+
+###2. Run this function some large number of times (100000 or 1000000) using parallel computation compare the time it takes running it not in parallel. 
+```{r}
+#Parallel
+
+no_cores <- detectCores() - 3
+cl <- makeCluster(no_cores)
+start <- Sys.time()
+String <- parLapply(cl, 10000000, Lettergen)
+end <- Sys.time()
+end-start
+stopCluster(cl)
+
+#NotParallel
+start <- Sys.time()
+String2 <- replicate(10000000, Lettergen)
+end <- Sys.time()
+end-start
+
+#########################################
+#The Time is different wow this is cool.#
+#This is amazing.!!                     #
+#########################################
+```
+
+###3. Create an R package that contains this function.
+
+
+###4. If you do not have one, set up a github account. Put the package on Github.
+
+username: nmargibbster18
+
+
+
+
